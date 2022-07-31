@@ -151,3 +151,64 @@ async function click() {
   //Click on the bad Button
   await driver.findElement(By.id("badButton")).click();
 }
+
+async function textInput() {
+  //launch the browser
+  let driver = await new Builder().forBrowser("chrome").build();
+
+  //navigate to our page
+  await driver.get("http://uitestingplayground.com/");
+
+  //Click button Load Delay
+  await driver
+    .findElement(By.xpath("//*[@id='overview']/div/div[2]/div[4]/h3/a"))
+    .click();
+
+  //Entering the text
+  await driver
+    .findElement(By.id("newButtonName"))
+    .sendKeys(Key.NUMPAD1, Key.NUMPAD1, Key.SPACE, Key.NUMPAD1);
+
+  //Click the button
+  await driver.findElement(By.xpath('//*[@id="updatingButton"]')).click();
+}
+
+async function hideButton() {
+  //launch the browser
+  let driver = await new Builder().forBrowser("chrome").build();
+
+  //navigate to our page
+  await driver.get("http://uitestingplayground.com/");
+
+  //Click button Load Delay
+  await driver
+    .findElement(By.xpath('//*[@id="overview"]/div/div[3]/div[1]/h3/a'))
+    .click();
+
+  await driver.findElement(By.xpath('//*[@id="hidingButton"]')).click();
+}
+
+async function dynamicTable() {
+  //launch the browser
+  let driver = await new Builder().forBrowser("chrome").build();
+
+  //navigate to our page
+  await driver.get("http://uitestingplayground.com/");
+
+  //Click button Load Delay
+  await driver
+    .findElement(By.xpath('//*[@id="overview"]/div/div[3]/div[2]/h3/a'))
+    .click();
+  //Storing our cpu of chrome
+  var chromeCPU = await driver
+    .findElement(By.xpath("/html/body/section/div/p[2]"))
+    .getText();
+  let arrChr = chromeCPU.split(" ");
+  console.log(arrChr[2]);
+
+  let x = await driver
+    .findElement(By.xpath('//span[contains(text(),"%")]'))
+    .getText();
+  console.log(x);
+}
+dynamicTable();
