@@ -43,7 +43,7 @@ async function classattribute() {
   await alert.accept();
 }
 
-async function hiddenlayers() {
+async function hiddenLayers() {
   //launch the browser
   let driver = await new Builder().forBrowser("chrome").build();
 
@@ -64,4 +64,22 @@ async function hiddenlayers() {
   await driver.sleep(1000);
   //Click green button again - error
   await driver.findElement(By.xpath('//*[@id="greenButton"]')).click();
+}
+
+async function loadDelay() {
+  //launch the browser
+  let driver = await new Builder().forBrowser("chrome").build();
+
+  //navigate to our page
+  await driver.get("http://uitestingplayground.com/");
+
+  //Click button Load Delay
+  await driver
+    .findElement(By.xpath('//*[@id="overview"]/div/div[1]/div[4]/h3/a'))
+    .click();
+
+  //Click the button when page is loaded and element located
+  await driver
+    .wait(until.elementLocated(By.xpath("/html/body/section/div/button")))
+    .click();
 }
