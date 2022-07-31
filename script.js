@@ -83,3 +83,33 @@ async function loadDelay() {
     .wait(until.elementLocated(By.xpath("/html/body/section/div/button")))
     .click();
 }
+
+async function ajaxData() {
+  //launch the browser
+  let driver = await new Builder().forBrowser("chrome").build();
+
+  //navigate to our page
+  await driver.get("http://uitestingplayground.com/");
+
+  //Click button Load Delay
+  await driver
+    .findElement(By.xpath('//*[@id="overview"]/div/div[2]/div[1]/h3/a'))
+    .click();
+
+  //Click button triggering ajax request
+  await driver.findElement(By.id("ajaxButton")).click();
+
+  //
+  await driver
+    .wait(until.elementLocated(By.xpath('//*[@id="content"]/p[1]')))
+    .click();
+
+  //Click button triggering ajax request
+  await driver.findElement(By.id("ajaxButton")).click();
+
+  await driver
+    .wait(until.elementLocated(By.xpath('//*[@id="content"]/p[2]')))
+    .click();
+  await driver.quit();
+}
+ajaxData();
