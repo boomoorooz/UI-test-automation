@@ -135,4 +135,19 @@ async function waitForScript() {
 
   await driver.quit();
 }
-waitForScript();
+
+async function click() {
+  //launch the browser
+  let driver = await new Builder().forBrowser("chrome").build();
+
+  //navigate to our page
+  await driver.get("http://uitestingplayground.com/");
+
+  //Click button Load Delay
+  await driver
+    .findElement(By.xpath("//*[@id='overview']/div/div[2]/div[3]/h3/a"))
+    .click();
+
+  //Click on the bad Button
+  await driver.findElement(By.id("badButton")).click();
+}
