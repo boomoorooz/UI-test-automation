@@ -299,6 +299,31 @@ async function visibility() {
 
   //We need to understand that if and only if element was removed from DOM, we will not have an option to find it in DOM.
   //We can use different ways to make our buttons and elements in DOM unvisible for human eye.
-  //Some of these exampls we have in this case - zero width/ change class(style)/display: none/opacity and others...
+  //Some of these exampls we have in this case - zero width/ change class(styled hidden)/display: none/opacity and others...
 }
-visibility();
+
+async function logIn() {
+  //launch the browser
+  let driver = await new Builder().forBrowser("chrome").build();
+
+  //navigate to our page
+  await driver.get("http://uitestingplayground.com/");
+
+  //click on visibility link
+  await driver
+    .findElement(By.xpath('//*[@id="overview"]/div/div[4]/div[2]/h3/a'))
+    .click();
+
+  //First we need to find an element with dynamic ID , that's why we need to use Full xpath
+  await driver
+    .findElement(By.xpath("/html/body/section/div/div[2]/div/input"))
+    .sendKeys("Logggg123in");
+
+  //Here we have the same situation
+  await driver
+    .findElement(By.xpath("/html/body/section/div/div[3]/div/input"))
+    .sendKeys("pwd");
+
+  //After this we just click on the button
+  await driver.findElement(By.xpath('//*[@id="login"]')).click();
+}
