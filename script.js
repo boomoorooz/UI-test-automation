@@ -238,7 +238,7 @@ async function progressBar() {
   //navigate to our page
   await driver.get("http://uitestingplayground.com/");
 
-  //click on verify link
+  //click on progressbar link
   await driver
     .findElement(By.xpath('//*[@id="overview"]/div/div[3]/div[4]/h3/a'))
     .click();
@@ -253,4 +253,52 @@ async function progressBar() {
     .findElement(By.xpath('//*[@id="stopButton"]'))
     .click();
 }
-progressBar();
+
+async function visibility() {
+  //launch the browser
+  let driver = await new Builder().forBrowser("chrome").build();
+
+  //navigate to our page
+  await driver.get("http://uitestingplayground.com/");
+
+  //click on visibility link
+  await driver
+    .findElement(By.xpath('//*[@id="overview"]/div/div[4]/div[1]/h3/a'))
+    .click();
+
+  //Learn locators of all buttons
+  await driver.findElement(By.xpath('//*[@id="hideButton"]')).click();
+
+  let removedButton = await driver.findElement(
+    By.xpath('//*[@id="removedButton"]')
+  );
+
+  let zerowidthButton = await driver.findElement(
+    By.xpath('//*[@id="zeroWidthButton"]')
+  );
+
+  let transparentButton = await driver.findElement(
+    By.xpath('//*[@id="transparentButton"]')
+  );
+
+  let invisbleButton = await driver.findElement(
+    By.xpath('//*[@id="invisibleButton"]')
+  );
+
+  let notdisplayedButton = await driver.findElement(
+    By.xpath('//*[@id="notdisplayedButton"]')
+  );
+
+  let offscreenButton = await driver.findElement(
+    By.xpath('//*[@id="offscreenButton"]')
+  );
+
+  let overlappedButton = await driver.findElement(
+    By.xpath('//*[@id="overlappedButton"]')
+  );
+
+  //We need to understand that if and only if element was removed from DOM, we will not have an option to find it in DOM.
+  //We can use different ways to make our buttons and elements in DOM unvisible for human eye.
+  //Some of these exampls we have in this case - zero width/ change class(style)/display: none/opacity and others...
+}
+visibility();
