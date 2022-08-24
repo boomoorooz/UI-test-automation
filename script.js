@@ -206,9 +206,51 @@ async function dynamicTable() {
   let arrChr = chromeCPU.split(" ");
   console.log(arrChr[2]);
 
-  let x = await driver
-    .findElement(By.xpath('//span[contains(text(),"%")]'))
-    .getText();
-  console.log(x);
+  //   let x = await driver.findElement(By.xpath("")).getText();
+  //   console.log(x);
 }
-dynamicTable();
+
+async function verifyText() {
+  //launch the browser
+  let driver = await new Builder().forBrowser("chrome").build();
+
+  //navigate to our page
+  await driver.get("http://uitestingplayground.com/");
+
+  //click on verify link
+  await driver
+    .findElement(By.xpath('//*[@id="overview"]/div/div[3]/div[3]/h3/a'))
+    .click();
+
+  //finding an element with text (Welcome ...)
+  await driver
+    .findElement(By.xpath('//span[normalize-space(.)="Welcome UserName!"]'))
+    .getText()
+    .then((e) => {
+      console.log(e);
+    });
+}
+
+async function progressBar() {
+  //launch the browser
+  let driver = await new Builder().forBrowser("chrome").build();
+
+  //navigate to our page
+  await driver.get("http://uitestingplayground.com/");
+
+  //click on verify link
+  await driver
+    .findElement(By.xpath('//*[@id="overview"]/div/div[3]/div[4]/h3/a'))
+    .click();
+
+  //finding start button
+  await driver.findElement(By.xpath('//*[@id="startButton"]')).click();
+  //Find progress bar and save it in variable
+  let progressB = await driver.findElement(By.xpath('//*[@id="progressBar"]'));
+  //Use our variable inside the function elementTextIs with wait.until construction
+  await driver
+    .wait(until.elementTextIs(progressB, "75%"))
+    .findElement(By.xpath('//*[@id="stopButton"]'))
+    .click();
+}
+progressBar();
