@@ -1,4 +1,4 @@
-const { Builder, By, until, Key } = require("selenium-webdriver");
+const { Builder, By, until, Key, Actions } = require("selenium-webdriver");
 
 async function dynamicid() {
   //launch the browser
@@ -380,3 +380,34 @@ async function overLappedElement() {
   //After scrolling we can use our variable and use f.sendKeys
   await element.sendKeys("Hello");
 }
+
+async function shadowDom() {
+  //launch the browser
+  let driver = await new Builder().forBrowser("chrome").build();
+
+  //navigate to our page
+  await driver.get("http://uitestingplayground.com/");
+
+  //click on visibility link
+  await driver
+    .findElement(By.xpath('//*[@id="overview"]/div/div[5]/div[2]/h3/a'))
+    .click();
+
+  let btnGenerate =
+    "return document.querySelector('body > section > div > guid-generator').shadowRoot.querySelector('#buttonGenerate')";
+
+  let btnCopy =
+    "return document.querySelector('body > section > div > guid-generator').shadowRoot.querySelector('#buttonCopy')";
+
+  let inputField =
+    "return document.querySelector('body > section > div > guid-generator').shadowRoot.querySelector('#editField')";
+
+  let btn1 = await driver.executeScript(btnGenerate);
+  let btn2 = await driver.executeScript(btnCopy);
+  let btn3 = await driver.executeScript(inputField);
+  await btn1.click();
+  await btn2.click();
+  await btn3.click();
+  await btn3.sendKeys(Key.COMMAND + "a");
+}
+shadowDom();
