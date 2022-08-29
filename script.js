@@ -327,3 +327,37 @@ async function logIn() {
   //After this we just click on the button
   await driver.findElement(By.xpath('//*[@id="login"]')).click();
 }
+
+async function mouseOver() {
+  //launch the browser
+  let driver = await new Builder().forBrowser("chrome").build();
+
+  //navigate to our page
+  await driver.get("http://uitestingplayground.com/");
+
+  //click on visibility link
+  await driver
+    .findElement(By.xpath('//*[@id="overview"]/div/div[4]/div[3]/h3/a'))
+    .click();
+
+  //Click me - 2 times
+  await driver.findElement(By.xpath("/html/body/section/div/div[1]/a")).click();
+  await driver.findElement(By.xpath("/html/body/section/div/div[1]/a")).click();
+}
+
+async function nonBreakingSpace() {
+  //launch the browser
+  let driver = await new Builder().forBrowser("chrome").build();
+
+  //navigate to our page
+  await driver.get("http://uitestingplayground.com/");
+
+  //click on visibility link
+  await driver
+    .findElement(By.xpath('//*[@id="overview"]/div/div[4]/div[4]/h3/a'))
+    .click();
+  //changing the space between My and Button to \u00A0, that's how we can find this element in DOM
+  await driver
+    .findElement(By.xpath("//button[text()='My\u00A0Button']"))
+    .click();
+}
