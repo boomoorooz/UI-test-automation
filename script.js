@@ -361,3 +361,22 @@ async function nonBreakingSpace() {
     .findElement(By.xpath("//button[text()='My\u00A0Button']"))
     .click();
 }
+
+async function overLappedElement() {
+  //launch the browser
+  let driver = await new Builder().forBrowser("chrome").build();
+
+  //navigate to our page
+  await driver.get("http://uitestingplayground.com/");
+
+  //click on visibility link
+  await driver
+    .findElement(By.xpath('//*[@id="overview"]/div/div[5]/div[1]/h3/a'))
+    .click();
+  //Firstly we are looking for an element and saving it in variable
+  let element = await driver.findElement(By.xpath("//*[@id='name']"));
+  //Next we need to use js function , which helps us to scroll
+  await driver.executeScript("arguments[0].scrollIntoView(true);", element);
+  //After scrolling we can use our variable and use f.sendKeys
+  await element.sendKeys("Hello");
+}
